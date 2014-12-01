@@ -14,14 +14,12 @@ $(document).ready(function(){
                 $(this).focus();
                 vF = false;
             } else {
-                if (dis.attr('id') == 'add-task-form') {
-                    if (vF && ($(this).hasClass('duration-input') == true)) {
-                        var durationReference = dis.find('#dp_min_remaining');
-                        if ($(this).val() > 240 || $(this).val() < 1) {
-                            promptMessage('error', 'Duration value should not exceed 240 minutes and be less than 1.');
-                            vF = false;
-                        }
-                    }                    
+                if (vF && ($(this).hasClass('duration-input') == true)) {
+                    var durationReference = dis.find('#dp_min_remaining');
+                    if ($(this).val() > 240 || $(this).val() < 1) {
+                        promptMessage('error', 'Duration value should not exceed 240 minutes and be less than 1.');
+                        vF = false;
+                    }
                 }
             }
         });
