@@ -71,8 +71,7 @@
                         <li>8:00</li>
                         <li>9:00</li>
                         <li>10:00</li>
-                        <li>11:00</li>
-                        <li class="lastli">12:00</li>
+                        <li>11:00<span class="pull-right">12:00</span></li>
                     </ul>
                     <div class="clearfix"></div>
 
@@ -82,8 +81,7 @@
                         <li>1:00</li>
                         <li>2:00</li>
                         <li>3:00</li>
-                        <li>4:00</li>
-                        <li class="lastli">5:00</li>
+                        <li>4:00<span class="pull-right">5:00</span></li>
                     </ul>
                     <div class="clearfix"></div>
 
