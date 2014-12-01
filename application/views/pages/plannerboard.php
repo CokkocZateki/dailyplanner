@@ -4,7 +4,7 @@
     <h1 class="page-header">Week <?php echo $weekToday; ?> of <?php echo $fullMonth; ?></h1>
     <button class="btn btn-md btn-warning pull-right" data-toggle="modal" data-target="#task-modal">Create Task</button>
     <div class="clearfix"></div>
-    <h3>Appointments</h3>
+    <h3 class="text-center">Appointments</h3>
     <table class="table table-condensed table-hover table-bordered wrap-data" id="appointments">
         <tr id="app-header">
             <th>Date</th>
@@ -44,7 +44,8 @@
         <?php endif; ?>
     </table>
 
-    <h3>Week Planner</h3>
+    <h3 class="text-center">Week Planner</h3>
+    <h5 class="text-center">You can drag appointment blocks on this planner and drop it to desired timeslot.</h5>
     <table class="table table-condensed table-hover table-bordered wrap-data">
         <tr>
             <th class="dpdate">Dates</th>

@@ -4,6 +4,7 @@ $(document).ready(function(){
     $(document).on('submit', '.class-forms', function(e) {
         e.preventDefault();
         var dis = $(this);
+        var disBtns = $(this).find('.modal-footer input, .modal-footer button, button[type="submit"], input[type="submit"]');
         var rI = dis.find('.required');
         var vF = true;
 
@@ -15,17 +16,24 @@ $(document).ready(function(){
             } else {
                 if (dis.attr('id') == 'add-task-form') {
                     if (vF && ($(this).hasClass('duration-input') == true)) {
-                        var durationReference = $(this).closest('form').find('#dp_min_remaining');
+                        var durationReference = dis.find('#dp_min_remaining');
                         if ($(this).val() > 240 || $(this).val() < 0) {
                             promptMessage('error', 'Duration value should not exceed 240 minutes and be less than 0.');
                             vF = false;
+                        } else {
+                            if ($(this).val() > durationReference.val()) {
+                                promptMessage('error', 'Desired duration should not exceed remaining '+durationReference.val()+' minutes');
+                                vF = false;
+                            }    
                         }
+                        
                     }                    
                 }
             }
         });
 
         if (vF) {
+            disBtns.addClass('disabled').attr('disabled', 'disabled');
             promptMessage('info', 'Loading...');
             var dataString = dis.serialize();
             var urlPath = dis.attr('action');
@@ -66,9 +74,11 @@ $(document).ready(function(){
                         setTimeout('window.location = "'+data.redirect+'"',500);
                     }
                     promptMessage(data.status, data.message);
+                    disBtns.removeClass('disabled').removeAttr('disabled');
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown){
                     promptMessage('error', 'Try refreshing the page.');
+                    disBtns.removeClass('disabled').removeAttr('disabled');
                 }
 
             });             
@@ -192,6 +202,8 @@ $(document).ready(function(){
     checkDuration = function(d){
 
         var dataString = d.closest('form').serialize();
+        d.closest('form').find('#dp_duration').css('opacity', '.3');
+        promptMessage('info', 'Retreiving new remaining minutes');
 
         $.ajax({
             type: 'POST',
@@ -202,6 +214,7 @@ $(document).ready(function(){
                 if(data.status == 'success') {
 
                     d.closest('form').find('#dp_min_remaining').val(data.setminutes);
+                    d.closest('form').find('#dp_duration').css('opacity', '1');
 
                     if (data.setminutes == 0) {
                         promptMessage('warning', 'You do not have remaining minutes for this timeslot. Try chaging the timeslot and the date.');

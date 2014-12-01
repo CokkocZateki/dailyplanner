@@ -22,7 +22,7 @@ class Users extends MY_Controller {
             $weekDates = $this->getListWeeks(date('Y-m-d'));
             $this->data['users'] = $this->user->getAllUsers();
             $this->data['weekToday'] = $this->week_of_month(date('Y-m-d H:i:s'));
-            $this->data['fullMonth'] = date('F', strtotime(date('Y-m-d H:i:s')));
+            $this->data['fullMonth'] = date('M Y', strtotime(date('Y-m-d H:i:s')));
             $this->data['pageDate'] = date('Y-m-d');
             $this->data['schedData'] = $this->planner_model->getAppointments($weekDates);
             $this->data['weekDates'] = $weekDates;
@@ -32,7 +32,7 @@ class Users extends MY_Controller {
             $weekDates = $this->getListWeeks($dateInput);
             $this->data['users'] = $this->user->getAllUsers();
             $this->data['weekToday'] = $this->week_of_month($dateInput);
-            $this->data['fullMonth'] = date('F', strtotime($dateInput));
+            $this->data['fullMonth'] = date('M Y', strtotime($dateInput));
             $this->data['pageDate'] = date('Y-m-d', strtotime($dateInput));
             $this->data['schedData'] = $this->planner_model->getAppointments($weekDates);
             $this->data['weekDates'] = $weekDates;            
