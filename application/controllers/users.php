@@ -24,6 +24,7 @@ class Users extends MY_Controller {
             $this->data['weekToday'] = $this->week_of_month(date('Y-m-d H:i:s'));
             $this->data['fullMonth'] = date('M Y', strtotime(date('Y-m-d H:i:s')));
             $this->data['pageDate'] = date('Y-m-d');
+            $this->data['dateToday'] = date('Y-m-d');
             $this->data['schedData'] = $this->planner_model->getAppointments($weekDates);
             $this->data['weekDates'] = $weekDates;
         
@@ -34,6 +35,7 @@ class Users extends MY_Controller {
             $this->data['weekToday'] = $this->week_of_month($dateInput);
             $this->data['fullMonth'] = date('M Y', strtotime($dateInput));
             $this->data['pageDate'] = date('Y-m-d', strtotime($dateInput));
+            $this->data['dateToday'] = date('Y-m-d');
             $this->data['schedData'] = $this->planner_model->getAppointments($weekDates);
             $this->data['weekDates'] = $weekDates;            
         }
@@ -43,9 +45,14 @@ class Users extends MY_Controller {
 
     public function getAppointmentsOnCreateUpdate(){
 
-        $weekDates = $this->getListWeeks($this->input->get('dateFull'));
-        $newData = $this->planner_model->getAppointments($weekDates);
-        echo json_encode($newData);
+        if ($this->input->get('dateFull') == '') {
+            $dataMessage = array('status' => 'error', 'message' => 'Update failed. Try refreshing the page.');
+            echo json_encode($dataMessage); 
+        } else {
+            $weekDates = $this->getListWeeks($this->input->get('dateFull'));
+            $newData = $this->planner_model->getAppointments($weekDates);
+            echo json_encode($newData);            
+        }
 
     }
 

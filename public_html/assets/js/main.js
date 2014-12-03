@@ -30,7 +30,8 @@ $(document).ready(function(){
             var dataString = dis.serialize();
             var urlPath = dis.attr('action');
             if(dis.hasClass('task-form') == true) {
-                var dateInput = $('#dp_date').val();
+                var dateInput = dis.find('#dp_date').val();
+                console.log(dateInput);
             }
             $.ajax({
                 type: 'POST',
